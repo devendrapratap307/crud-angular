@@ -1,0 +1,65 @@
+<br>
+<div class="container" *ngIf="employee">
+    <h2 class="text-center">{{employee.id ? 'Update' : 'Add'}} Employee</h2>
+
+    <div *ngIf="errorList && errorList.length > 0">
+        <p *ngFor="let er of errorList">
+            <p-message severity="warn" text="{{er.message}}" *ngIf="er.message"></p-message>
+        </p>
+    </div>
+
+    <div class="mb-3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" aria-describedby="firstName"
+            [(ngModel)]="employee.firstName">
+    </div>
+    <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" aria-describedby="lastName"
+            [(ngModel)]="employee.lastName">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" aria-describedby="email" [(ngModel)]="employee.email">
+    </div>
+     
+    <div class="mb-3">
+        <p-radioButton name="groupname" value="male" label="Male" [(ngModel)]="employee.gender"></p-radioButton> &nbsp;
+        <p-radioButton name="groupname" value="female" label="Female" [(ngModel)]="employee.gender"></p-radioButton>
+    </div>
+    <div class="mb-3">
+        <label for="dob" class="form-label">DOB</label><br>
+        <p-calendar [(ngModel)]="employee.dob" dateFormat="dd-mm-yy" [readonlyInput]="true"
+            placeholder="Enter date of birth"></p-calendar>
+    </div>
+    <div class="mb-3">
+        <label for="salary" class="form-label">Salary</label>
+        <input type="number" class="form-control" id="salary" aria-describedby="salary" [(ngModel)]="employee.salary">
+    </div>
+    <div class="mb-3">
+        <label for="projectIds" class="form-label">Project Ids</label>
+        <p-multiSelect [options]="projects" [(ngModel)]="employee.projectList" defaultLabel="Select projects"
+            optionLabel="name" optionValue="code" class="multiselect-custom" display="chip">Slect multi</p-multiSelect>
+    </div>
+
+    <ng-container *ngIf="employee.address">
+        <div class="mb-3">
+            <label for="street" class="form-label">Address</label>
+            <input type="text" class="form-control" id="street" aria-describedby="street"
+                [(ngModel)]="employee.address.street">
+        </div>
+        <div class="mb-3">
+            <label for="pin" class="form-label">Pin Code</label>
+            <input type="text" class="form-control" id="pin" aria-describedby="pin" [(ngModel)]="employee.address.pin">
+        </div>
+    </ng-container>
+    <!-- <p *ngIf="employee.id ==null"> -->
+    <button type="submit" class="btn btn-primary" (click)="addEmployee()">Submit</button>
+    <!-- </p> -->
+    <!-- <p *ngIf="employee.id !=null">
+        <button type="submit" class="btn btn-primary" (click)="updateEmp()">Update</button>
+        </p> -->
+</div>
+<div *ngIf="!employee">
+    Something Went Wrong
+</div>
